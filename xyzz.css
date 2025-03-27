@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 0;
     background: linear-gradient(135deg, #04132a, #0c3b5e);
-    color: whitesmoke;
+    color: rgb(229, 229, 229);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,10 +18,10 @@ body {
 }
 header {
     background: rgba(25, 69, 120, 0.8);
-    background-image: url('https://i.pinimg.com/736x/54/c6/67/54c6678200886cd5fb8c913465863465.jpg');
+    background-image: url('https://i.pinimg.com/736x/ae/d7/60/aed7607ffb19e1284f882d1600b71b0a.jpg');
     background-position: center;
     background-size: cover;
-    color: white;
+    color: rgb(99, 73, 73);
     padding: 25px;
     text-align: center;
     position: sticky;
@@ -29,7 +29,7 @@ header {
     width: 100%;
     z-index: 1000;
     backdrop-filter: blur(10px);
-    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+    box-shadow: 0px 4px 10px rgba(14, 13, 13, 0.2);
 }
 
 nav {
@@ -70,7 +70,7 @@ nav ul li a:hover {
     height: 100vh;
     width: 100%;
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), 
-                url('https://i.pinimg.com/474x/9f/d4/f7/9fd4f772549702ddb689572524adb0f6.jpg');
+                url('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZ3U3OGpzdWtyajduYmZyOWtvbXV3Z201MGhtbWV4eWZycGd0cGFnZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PjJ1cLHqLEveXysGDB/giphy.gif');
     background-size: cover;
     padding-right: 10px;
     background-position: top;
@@ -171,3 +171,4 @@ footer {
     0% { opacity: 0; transform: translateY(20px); }
     100% { opacity: 1; transform: translateY(0); }
 }
+
