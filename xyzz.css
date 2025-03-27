@@ -1,0 +1,173 @@
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #04132a, #0c3b5e);
+    color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+header {
+    background: rgba(25, 69, 120, 0.8);
+    background-image: url('https://i.pinimg.com/736x/54/c6/67/54c6678200886cd5fb8c913465863465.jpg');
+    background-position: center;
+    background-size: cover;
+    color: white;
+    padding: 25px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #19b4db;
+    font-weight: bold;
+    transition: color 0.4s, transform 0.3s, box-shadow 0.3s;
+    padding: 10px 15px;
+    border-radius: 5px;
+    backdrop-filter: blur(10px);
+}
+
+nav ul li a:hover {
+    color: #0fe2bf;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+.hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), 
+                url('https://i.pinimg.com/474x/9f/d4/f7/9fd4f772549702ddb689572524adb0f6.jpg');
+    background-size: cover;
+    padding-right: 10px;
+    background-position: top;
+    background-attachment: scroll;
+    color: #fff;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero h1 {
+    font-size: 60px;
+    font-weight: bold;
+    animation: fadeIn 4s ease-in-out;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-top: 10px;
+    opacity: 0.9;
+    animation: slideUp 1.5s ease-in-out;
+}
+.btn {
+    background: linear-gradient(135deg, #08a4b3, #06e0a3);
+    padding: 15px 30px;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+    font-size: 18px;
+}
+.btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 20px rgba(6, 224, 163, 0.6);
+}
+.sections {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.section {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 50px;
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.4);
+}
+
+.assistant {
+    padding: 50px;
+    
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), 
+    url('https://i.pinimg.com/736x/4e/bb/41/4ebb41ef0e4e854bc543a42ca0b8a698.jpg');
+    background-position: right;
+    background-size: cover;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(15, 3, 95, 0.2);
+}
+
+.contact {
+    padding: 50px;
+    text-align: center;
+}
+footer {
+    background: #111;
+    padding: 20px;
+    text-align: center;
+    color: #aaa;
+    width: 100%;
+}
+@keyframes fadeIn {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
