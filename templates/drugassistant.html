@@ -1,56 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Drug Assistant</title>
-    <link rel="stylesheet" href="../static/xyzz.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Drug Discovery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='xyzz.css') }}" />
 </head>
 <body>
-    <header>
-        <h1 style="color: whitesmoke;">Drug Assistant</h1>
-        <p></p>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#assistant">AI Assistant</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h2><b>Revolutionizing Drug Discovery with AI</b></h2>
-            <p><mark>Experience the power of AI in medicine. Generate drug recommendations and insights in real-time.</mark></p>
-            <a href="#assistant" class="btn">Try AI Assistant</a>
-        </div>
-    </section>
-    <section id="assistant" class="assistant">
-        <h2>Generative AI Drug Assistant</h2>
-        <div class="assistant-content">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT67geziIQD9iI7AwkOqoYgAHDM_bHMH0wBiA&s" alt="AI Drug Assistant">
-            <p>Our AI-driven system provides expert drug insights, interactions, and alternatives.</p>
-            <button class="btn">Start AI Chat</button>
-        </div>
-    </section>
-    <section id="about" class="about">
-        <h2>About Our AI</h2>
-        <p>Our AI technology leverages deep learning and vast medical databases to assist in drug discovery and recommendations.</p>
-    </section>
-    <section id="contact" class="contact">
-        <h2>Contact Us</h2>
-        <form>
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" required></textarea>
-            <button type="submit">Send</button>
-        </form>
-    </section>
-    <footer>
-        <p>&copy; 2025 AI Drug Assistant. All rights reserved.</p>
-        <p>Designed by <strong>AI PLANETS</strong></p>
-    </footer>
 
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">⬡ DrugDiscovery<span>AI</span></div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#generate">Generate</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <p class="badge">Pix2Pix GAN · TensorFlow</p>
+      <h1>Synthesize Drug Compounds <span>with AI</span></h1>
+      <p class="hero-sub">Upload a molecular compound image and let our generative model produce novel drug compound variations.</p>
+      <div class="hero-btns">
+        <a href="#generate" class="btn-primary">Try the Generator</a>
+        <a href="#about" class="btn-outline">Learn More</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><strong>1,800</strong><span>Training Images</span></div>
+      <div class="stat"><strong>3</strong><span>Drug Classes</span></div>
+      <div class="stat"><strong>256×256</strong><span>Output Resolution</span></div>
+    </div>
+  </section>
+
+  <!-- DRUG CARDS -->
+  <section class="drugs-section">
+    <h2>Supported Drug Classes</h2>
+    <p class="section-sub">The model is trained on compound images from three pharmaceutical categories.</p>
+    <div class="drug-cards">
+      <div class="drug-card">
+        <div class="drug-icon green">💊</div>
+        <h3>Amoxicillin</h3>
+        <span class="tag green">Antibiotic</span>
+        <p>A broad-spectrum penicillin antibiotic used to treat a range of bacterial infections.</p>
+        <button onclick="selectDrug('amoxicillin')">Generate →</button>
+      </div>
+      <div class="drug-card">
+        <div class="drug-icon blue">🧬</div>
+        <h3>Atorvastatin</h3>
+        <span class="tag blue">Statin</span>
+        <p>A statin medication used to prevent cardiovascular disease and treat abnormal lipid levels.</p>
+        <button onclick="selectDrug('atorvastatin')">Generate →</button>
+      </div>
+      <div class="drug-card">
+        <div class="drug-icon purple">⚗️</div>
+        <h3>Metformin</h3>
+        <span class="tag purple">Antidiabetic</span>
+        <p>A first-line medication for the treatment of type 2 diabetes, particularly in overweight patients.</p>
+        <button onclick="selectDrug('metformin')">Generate →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GENERATOR -->
+  <section id="generate" class="generator-section">
+    <h2>Compound Image Generator</h2>
+    <p class="section-sub">Upload a drug compound image and select a class to generate a synthesized output.</p>
+
+    <div class="generator-grid">
+      <!-- Input -->
+      <div class="gen-card">
+        <h3>Input</h3>
+        <form id="generateForm" enctype="multipart/form-data">
+          <div class="upload-zone" id="uploadZone">
+            <input type="file" id="compound_image" name="compound_image" accept=".png,.jpg,.jpeg" hidden />
+            <div id="uploadPlaceholder">
+              <div class="upload-icon">📂</div>
+              <p>Drag & drop or <span class="link">browse</span></p>
+              <small>PNG, JPG · Max 16 MB</small>
+            </div>
+            <img id="previewImg" class="hidden" alt="Preview" />
+          </div>
+
+          <div class="form-group">
+            <label for="drug_class">Drug Class</label>
+            <select id="drug_class" name="drug_class" required>
+              <option value="" disabled selected>Select a drug class…</option>
+              <option value="amoxicillin">Amoxicillin — Antibiotic</option>
+              <option value="atorvastatin">Atorvastatin — Statin</option>
+              <option value="metformin">Metformin — Antidiabetic</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn-primary full" id="generateBtn">
+            <span id="btnText">Generate Compound</span>
+            <span id="btnSpinner" class="spinner hidden"></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Output -->
+      <div class="gen-card">
+        <h3>Output</h3>
+        <div class="output-area">
+          <div id="outputPlaceholder" class="output-placeholder">
+            <div class="upload-icon">🔬</div>
+            <p>Generated compound will appear here</p>
+          </div>
+          <div id="outputResult" class="hidden">
+            <img id="outputImg" alt="Generated compound" />
+            <div id="drugInfoCard"></div>
+            <a id="downloadBtn" class="btn-outline full" download>Download Image</a>
+          </div>
+        </div>
+        <div id="errorMsg" class="error hidden"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery" class="gallery-section">
+    <h2>Generated Compounds Gallery</h2>
+    <p class="section-sub">Browse previously generated compound images by drug class.</p>
+    <div class="tabs">
+      <button class="tab active" onclick="loadGallery('amoxicillin', this)">Amoxicillin</button>
+      <button class="tab" onclick="loadGallery('atorvastatin', this)">Atorvastatin</button>
+      <button class="tab" onclick="loadGallery('metformin', this)">Metformin</button>
+    </div>
+    <div id="galleryGrid" class="gallery-grid">
+      <div class="gallery-msg">Loading gallery…</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about-section">
+    <h2>About the Model</h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-icon">🧠</div>
+        <h3>Pix2Pix GAN</h3>
+        <p>A conditional GAN with an encoder–decoder generator and PatchGAN discriminator, trained end-to-end on paired compound images.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-icon">📊</div>
+        <h3>Training</h3>
+        <p>Trained for 10 epochs on 1,800 compound images (600 per class) at 256×256 resolution using Adam optimizer (lr=2×10⁻⁴).</p>
+      </div>
+      <div class="about-card">
+        <div class="about-icon">🔬</div>
+        <h3>Application</h3>
+        <p>Generated images can be used for molecular analysis, data augmentation, and exploring structural variations of known compounds.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-icon">⚡</div>
+        <h3>Tech Stack</h3>
+        <p>Built with TensorFlow 2.x, Flask, and NumPy. The web interface is served via a lightweight Python backend with real-time inference.</p>
+      </div>
+    </div>
+
+    <div class="pipeline">
+      <div class="pipeline-step"><span>🖼️</span>Input Image</div>
+      <div class="arrow">→</div>
+      <div class="pipeline-step"><span>⬇️</span>Encoder</div>
+      <div class="arrow">→</div>
+      <div class="pipeline-step"><span>⬆️</span>Decoder</div>
+      <div class="arrow">→</div>
+      <div class="pipeline-step"><span>✨</span>Generated Output</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo">⬡ DrugDiscovery<span>AI</span></div>
+    <p>Accelerating pharmaceutical research with generative AI.</p>
+    <p class="copy">© 2025 AI Drug Discovery. Built for research & education.</p>
+  </footer>
+
+  <script>
+    // Upload zone
+    const uploadZone   = document.getElementById('uploadZone');
+    const fileInput    = document.getElementById('compound_image');
+    const preview      = document.getElementById('previewImg');
+    const placeholder  = document.getElementById('uploadPlaceholder');
+
+    uploadZone.addEventListener('click', () => fileInput.click());
+    uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+    uploadZone.addEventListener('drop', e => {
+      e.preventDefault();
+      uploadZone.classList.remove('drag-over');
+      if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+    fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFile(fileInput.files[0]); });
+
+    function handleFile(file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        preview.src = e.target.result;
+        preview.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function selectDrug(cls) {
+      document.getElementById('drug_class').value = cls;
+      document.getElementById('generate').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Form submit
+    document.getElementById('generateForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn        = document.getElementById('generateBtn');
+      const btnText    = document.getElementById('btnText');
+      const spinner    = document.getElementById('btnSpinner');
+      const errMsg     = document.getElementById('errorMsg');
+      const outResult  = document.getElementById('outputResult');
+      const outHolder  = document.getElementById('outputPlaceholder');
+
+      errMsg.classList.add('hidden');
+      outResult.classList.add('hidden');
+      outHolder.classList.remove('hidden');
+      btn.disabled = true;
+      btnText.textContent = 'Generating…';
+      spinner.classList.remove('hidden');
+
+      try {
+        const res  = await fetch('/generate', { method: 'POST', body: new FormData(e.target) });
+        const data = await res.json();
+        if (!res.ok || data.error) throw new Error(data.error || 'Generation failed.');
+
+        const outputImg   = document.getElementById('outputImg');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const infoCard    = document.getElementById('drugInfoCard');
+        const info        = data.drug_info;
+
+        outputImg.src       = data.output_image + '?t=' + Date.now();
+        downloadBtn.href    = data.output_image;
+        downloadBtn.download = `${data.drug_class}_generated.png`;
+
+        infoCard.innerHTML = `
+          <div class="info-row"><span>Drug</span><strong>${cap(data.drug_class)}</strong></div>
+          <div class="info-row"><span>Category</span><strong>${info.category || '—'}</strong></div>
+          <div class="info-row"><span>Use</span><strong>${info.use || '—'}</strong></div>
+          <p class="info-desc">${info.description || ''}</p>
+        `;
+
+        outHolder.classList.add('hidden');
+        outResult.classList.remove('hidden');
+      } catch (err) {
+        errMsg.textContent = err.message;
+        errMsg.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btnText.textContent = 'Generate Compound';
+        spinner.classList.add('hidden');
+      }
+    });
+
+    // Gallery
+    async function loadGallery(cls, tabEl) {
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+      if (tabEl) tabEl.classList.add('active');
+      const grid = document.getElementById('galleryGrid');
+      grid.innerHTML = '<div class="gallery-msg">Loading…</div>';
+      try {
+        const res  = await fetch(`/gallery/${cls}`);
+        const data = await res.json();
+        if (!data.images || data.images.length === 0) {
+          grid.innerHTML = '<div class="gallery-msg">No generated images yet for this class.</div>';
+          return;
+        }
+        grid.innerHTML = data.images.map(src => `
+          <div class="gallery-item">
+            <img src="${src}" alt="${cls} compound" loading="lazy" />
+            <div class="gallery-label">${cap(cls)}</div>
+          </div>
+        `).join('');
+      } catch {
+        grid.innerHTML = '<div class="gallery-msg">Failed to load gallery.</div>';
+      }
+    }
+
+    function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+    loadGallery('amoxicillin', null);
+  </script>
 </body>
 </html>
